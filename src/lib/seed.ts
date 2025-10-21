@@ -1,6 +1,7 @@
 import dbConnect from '@/lib/db'
 import { Product } from '@/models/Product'
 import { User } from '@/models/User'
+import { Order } from '@/models/Order'
 import { productData } from '@/data/products'
 import bcrypt from 'bcryptjs'
 
@@ -11,8 +12,12 @@ async function seedDatabase() {
     console.log('🌱 Starting database seeding...')
     
     // Clear existing data
-    await Product.deleteMany({})
-    await User.deleteMany({})
+    console.log('Clearing existing data...')
+    await Promise.all([
+      Product.deleteMany({}),
+      User.deleteMany({}),
+      Order.deleteMany({}) // Clean orders too
+    ])
     
     // Create a default vendor user
     const hashedPassword = await bcrypt.hash('password123', 12)
@@ -36,9 +41,14 @@ async function seedDatabase() {
       rating: product.rating || { average: 4.5, count: 0 }
     }))
     
-    await Product.insertMany(productsWithVendor)
+    const insertedProducts = await Product.insertMany(productsWithVendor)
     
-    console.log(`✅ Created ${productData.length} products`)
+    // Verify prices were set correctly
+    const priceCheck = insertedProducts.every((product, index) => 
+      product.price === productData[index].price
+    )
+    
+    console.log(`✅ Created ${productData.length} products${priceCheck ? ' with verified prices' : ' (WARNING: price mismatch)'}`)
     console.log('🎉 Database seeding completed successfully!')
     
     // Log sample credentials
