@@ -40,6 +40,7 @@ export async function createBitcoinPayment(
       console.error('Error fetching Bitcoin price:', error);
       // Fallback to a fixed rate for testing
       btcAmount = (amountUSD / 30000).toFixed(8);
+    }
 
     // Generate payment data
     const paymentData: BitcoinPayment = {
