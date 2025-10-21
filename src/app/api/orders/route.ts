@@ -72,6 +72,24 @@ export async function POST(request: NextRequest) {
       paymentStatus: 'pending'
     };
 
+    console.log('=== Debug Info ===');
+    console.log('Raw shipping address:', shippingAddress);
+    console.log('Formatted address:', formattedAddress);
+    console.log('Full order data:', orderData);
+    console.log('=== End Debug Info ===');
+
+    // Validate shipping address fields match the model
+    const requiredShippingFields = ['street', 'city', 'state', 'zipCode', 'country'];
+    const missingShippingFields = requiredShippingFields.filter(field => !formattedAddress[field]);
+
+    if (missingShippingFields.length > 0) {
+      console.error('Missing shipping fields:', missingShippingFields);
+      return NextResponse.json(
+        { error: `Missing required shipping fields: ${missingShippingFields.join(', ')}` },
+        { status: 400 }
+      );
+    }
+
     console.log('Creating order with formatted data:', orderData);
 
     // Ensure database connection

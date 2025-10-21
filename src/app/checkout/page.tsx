@@ -78,6 +78,9 @@ export default function CheckoutPage() {
     try {
       // Create order first
       console.log('Creating order...')
+      // Log the form data for debugging
+      console.log('Form data:', formData);
+
       const orderPayload = {
         items: items.map(item => ({
           productId: item.productId,
@@ -90,9 +93,9 @@ export default function CheckoutPage() {
         shippingAddress: {
           street: formData.address,
           city: formData.city,
-          state: 'N/A',
+          state: formData.state || 'N/A',
           zipCode: formData.postalCode,
-          country: formData.country
+          country: formData.country || 'USA'
         }
       }
       console.log('Order payload:', orderPayload)
