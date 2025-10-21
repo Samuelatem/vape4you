@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { createOrder, getOrderById } from '@/lib/orders'
+import { Order } from '@/models/Order'
+import { connectDB } from '@/lib/db'
 
 export async function POST(request: NextRequest) {
   try {
@@ -57,13 +59,15 @@ export async function GET(request: NextRequest) {
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+    
+    await connectDB()
 
     const { searchParams } = new URL(request.url)
     const orderId = searchParams.get('id')
 
     if (orderId) {
       // Fetch specific order
-      const order = await localDB.getOrderById(orderId)
+      const order = await getOrderById(orderId)
       if (!order) {
         return NextResponse.json(
           { error: 'Order not found' },
@@ -76,7 +80,7 @@ export async function GET(request: NextRequest) {
       })
     } else {
       // Fetch all user orders
-      const orders = await localDB.getUserOrders(session.user.id!)
+      const orders = await Order.find({ userId: session.user.id })
       return NextResponse.json({
         success: true,
         orders
