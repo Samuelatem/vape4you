@@ -29,10 +29,10 @@ export async function createOrder(orderData: any) {
         price: item.price
       })),
       shippingAddress: {
-        street: orderData.shippingAddress.street || orderData.shippingAddress.address,
+        street: orderData.shippingAddress.street,
         city: orderData.shippingAddress.city,
-        state: orderData.shippingAddress.state || 'N/A',
-        zipCode: orderData.shippingAddress.postalCode,
+        state: orderData.shippingAddress.state,
+        zipCode: orderData.shippingAddress.zipCode,
         country: orderData.shippingAddress.country
       },
       createdAt: new Date(),

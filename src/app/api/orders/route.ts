@@ -74,6 +74,17 @@ export async function POST(request: NextRequest) {
 
     console.log('Creating order with formatted data:', orderData);
 
+    // Ensure database connection
+    try {
+      await connectDB();
+    } catch (dbError) {
+      console.error('Database connection error:', dbError);
+      return NextResponse.json(
+        { error: 'Database connection failed' },
+        { status: 500 }
+      );
+    }
+
     const order = await createOrder(orderData)
 
     console.log('Order created:', order)
