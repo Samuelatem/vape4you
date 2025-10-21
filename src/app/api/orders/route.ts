@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { localDB } from '@/lib/local-db'
+import { createOrder, getOrderById } from '@/lib/orders'
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       shippingAddress
     })
 
-    const order = await localDB.createOrder({
+    const order = await createOrder({
       userId: session.user.id!,
       items,
       total,
