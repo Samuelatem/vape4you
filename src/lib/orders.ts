@@ -10,17 +10,46 @@ export async function createOrder(orderData: any) {
   }
 
   try {
+    console.log('Connecting to MongoDB...')
     await connectDB()
+    
+    // Convert string IDs to ObjectIds if needed
+    const userId = orderData.userId.toString()
+    const items = orderData.items.map((item: any) => ({
+      ...item,
+      productId: item.productId.toString()
+    }))
+
+    console.log('Creating order with data:', {
+      ...orderData,
+      userId,
+      items
+    })
+
     const order = new Order({
       ...orderData,
+      userId,
+      items,
       createdAt: new Date(),
       updatedAt: new Date()
     })
+
+    console.log('Saving order...')
     await order.save()
+    console.log('Order saved successfully:', order)
+
     return order
   } catch (error) {
     console.error('Error creating order:', error)
-    throw error
+    if (error instanceof Error) {
+      if (error.message.includes('validation failed')) {
+        throw new Error('Order validation failed: Please check all required fields')
+      }
+      if (error.message.includes('duplicate key')) {
+        throw new Error('Order already exists')
+      }
+    }
+    throw new Error('Failed to create order: Database error')
   }
 }
 
