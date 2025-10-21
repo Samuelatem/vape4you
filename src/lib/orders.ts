@@ -14,11 +14,17 @@ export async function createOrder(orderData: any) {
     const db = await connectDB()
     console.log('MongoDB connection state:', db.connection.readyState)
     
+    if (db.connection.readyState !== 1) {
+      throw new Error('Database connection is not ready. Current state: ' + db.connection.readyState)
+    }
+    
     // Format and validate the data
     const formattedData = {
       ...orderData,
-      userId: orderData.userId,
+      userId: new mongoose.Types.ObjectId(orderData.userId),
       items: orderData.items.map((item: any) => ({
+        ...item,
+        productId: new mongoose.Types.ObjectId(item.productId),
         productId: item.productId,
         quantity: item.quantity,
         price: item.price
@@ -42,7 +48,7 @@ export async function createOrder(orderData: any) {
     const validationError = order.validateSync()
     if (validationError) {
       console.error('Validation error:', validationError)
-      throw new Error(`Order validation failed: ${Object.values(validationError.errors).map(e => e.message).join(', ')}`)
+      throw new Error(`Order validation failed: ${Object.values(validationError.errors).map((e: any) => e.message).join(', ')}`)
     }
 
     console.log('Saving order...')
