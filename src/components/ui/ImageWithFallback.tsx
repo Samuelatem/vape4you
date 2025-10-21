@@ -37,5 +37,4 @@ export function ImageWithFallback({
   }
 
   return <Image {...imageProps} />
-  )
 }

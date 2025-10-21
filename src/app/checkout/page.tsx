@@ -95,7 +95,6 @@ export default function CheckoutPage() {
           country: formData.country
         }
       }
-      }
       console.log('Order payload:', orderPayload)
 
       const orderResponse = await fetch('/api/orders', {
