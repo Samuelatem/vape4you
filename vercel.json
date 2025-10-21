@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "MONGODB_URI": "mongodb+srv://sammyaa86_db_user:SGUs7jX99cBEvVhx@vape4you.rt2bwf4.mongodb.net/vape4you?retryWrites=false",
+    "NEXTAUTH_SECRET": "vape4you-super-secret-key-2024",
+    "NEXTAUTH_URL": "https://vape4you.vercel.app/api/auth",
+    "BITCOIN_WALLET_ADDRESS": "bc1qxyz..."
+  },
+  "regions": ["cdg1"],
+  "github": {
+    "silent": true
+  }
+}

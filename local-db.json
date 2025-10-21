@@ -1,0 +1,1240 @@
+{
+  "users": [
+    {
+      "id": "1760581436858",
+      "email": "vendor@vape4you.com",
+      "password": "$2a$10$/hS8gMGqCbPa0kbnF0yUd.px.YWIj1oYSFk4TYF5nK3p5hmOe2P0a",
+      "name": "VapeShop Pro",
+      "role": "vendor",
+      "createdAt": "2025-10-16T02:23:56.858Z"
+    },
+    {
+      "id": "1760581437426",
+      "email": "vendor2@vape4you.com",
+      "password": "$2a$10$rYYVgL2i4QAVcq52IuiNPuBZcLnHpVOIZRVbyVghtNzj4Bj941ssO",
+      "name": "Cloud Master",
+      "role": "vendor",
+      "createdAt": "2025-10-16T02:23:57.426Z"
+    },
+    {
+      "id": "1760581437709",
+      "email": "vendor3@vape4you.com",
+      "password": "$2a$10$h25Np/lchI.XTSxhLvR4vO9z4GheC1GQ0aarFNuIF51Y15xSG.k1y",
+      "name": "Vape Elite",
+      "role": "vendor",
+      "createdAt": "2025-10-16T02:23:57.709Z"
+    },
+    {
+      "id": "1760581437924",
+      "email": "client@vape4you.com",
+      "password": "$2a$10$8T4K/Q27Fx5ZalknQewtc.ipS73xv/dA6uxXJQnG/LYdAg/K3SufW",
+      "name": "John Doe",
+      "role": "client",
+      "createdAt": "2025-10-16T02:23:57.924Z"
+    },
+    {
+      "id": "1760581438172",
+      "email": "client2@vape4you.com",
+      "password": "$2a$10$6SeAM2sCqM9Jhmk/LvFsNOKLuGVtcezZ.lPuhpVHGsINOdOliwsiu",
+      "name": "Sarah Wilson",
+      "role": "client",
+      "createdAt": "2025-10-16T02:23:58.172Z"
+    },
+    {
+      "id": "1760581438417",
+      "email": "client3@vape4you.com",
+      "password": "$2a$10$Thj8HW2aGk0EKipocbcDkOJfWRcSFeOaT0ULkSHnNiHlEQq6BPNmW",
+      "name": "Mike Johnson",
+      "role": "client",
+      "createdAt": "2025-10-16T02:23:58.417Z"
+    },
+    {
+      "id": "1760585313419",
+      "email": "james20@atemx.com",
+      "password": "$2a$10$LRk99TwjfjqYHhDMRLlq4.zm4sn2Eq.vDkjVukVuu8IJ2ZFy9jTdi",
+      "name": "jason",
+      "role": "client",
+      "createdAt": "2025-10-16T03:28:33.419Z"
+    },
+    {
+      "id": "1760585603717",
+      "email": "sammyaa86@gmail.com",
+      "password": "$2a$10$xhM5w0ondzOgdTwghMHyeeFTQ8UeZ9fL4oOViem.ieasInfuhIImm",
+      "name": "ATEM Samuel",
+      "role": "client",
+      "createdAt": "2025-10-16T03:33:23.717Z"
+    },
+    {
+      "id": "1761016995197",
+      "email": "lacazette@vape4you.com",
+      "password": "$2a$10$lxTC1385MzvIxGszClqXguHPbVU41GCwo4ydI.GTtH/.QV5vzbcem",
+      "name": "lacazette",
+      "role": "vendor",
+      "createdAt": "2025-10-21T03:23:15.197Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "17605814384260.6706869334178951",
+      "name": "Premium Vape Pen V1",
+      "description": "High-quality vape pen with premium features and long battery life",
+      "price": 49.99,
+      "images": [
+        "/images/products/1.jpg"
+      ],
+      "category": "vape-pens",
+      "rating": 4.5,
+      "reviews": 24,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.426Z",
+      "updatedAt": "2025-10-16T02:23:58.426Z"
+    },
+    {
+      "id": "17605814384260.6336374870703267",
+      "name": "Sleek Vape Pen Pro",
+      "description": "Ultra-slim design with powerful performance",
+      "price": 55.99,
+      "images": [
+        "/images/products/2.jpg"
+      ],
+      "category": "vape-pens",
+      "rating": 4.3,
+      "reviews": 31,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.426Z",
+      "updatedAt": "2025-10-16T02:23:58.426Z"
+    },
+    {
+      "id": "17605814384260.9131800980578386",
+      "name": "Executive Vape Pen",
+      "description": "Professional grade pen for business use",
+      "price": 89.99,
+      "images": [
+        "/images/products/3.jpg"
+      ],
+      "category": "vape-pens",
+      "rating": 4.7,
+      "reviews": 18,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.426Z",
+      "updatedAt": "2025-10-16T02:23:58.426Z"
+    },
+    {
+      "id": "17605814384260.7617828291625834",
+      "name": "Cloud Master Pro",
+      "description": "Professional grade vaping device with advanced temperature control",
+      "price": 79.99,
+      "images": [
+        "/images/products/4.jpg"
+      ],
+      "category": "mod",
+      "rating": 4.8,
+      "reviews": 42,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.426Z",
+      "updatedAt": "2025-10-16T02:23:58.426Z"
+    },
+    {
+      "id": "17605814384260.0783363873194387",
+      "name": "Thunder Mod 200W",
+      "description": "High-power mod with dual battery support",
+      "price": 125.99,
+      "images": [
+        "/images/products/5.jpg"
+      ],
+      "category": "mod",
+      "rating": 4.6,
+      "reviews": 28,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.426Z",
+      "updatedAt": "2025-10-16T02:23:58.426Z"
+    },
+    {
+      "id": "17605814384260.7249942340726689",
+      "name": "Stealth Mod Mini",
+      "description": "Compact mod with premium build quality",
+      "price": 95.99,
+      "images": [
+        "/images/products/6.jpg"
+      ],
+      "category": "mod",
+      "rating": 4.4,
+      "reviews": 33,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.426Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.45510004138824867",
+      "name": "Titan Mod Elite",
+      "description": "Heavy-duty mod for serious vapers",
+      "price": 159.99,
+      "images": [
+        "/images/products/7.jpg"
+      ],
+      "category": "mod",
+      "rating": 4.9,
+      "reviews": 15,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.9236070073269766",
+      "name": "Beginner Kit Essential",
+      "description": "Perfect starter kit for new vapers",
+      "price": 29.99,
+      "images": [
+        "/images/products/8.jpg"
+      ],
+      "category": "starter-kits",
+      "rating": 4.2,
+      "reviews": 67,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.21360143198072667",
+      "name": "Complete Starter Pack",
+      "description": "Everything you need to start vaping",
+      "price": 39.99,
+      "images": [
+        "/images/products/9.jpg"
+      ],
+      "category": "starter-kits",
+      "rating": 4.1,
+      "reviews": 89,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.5934820534622167",
+      "name": "Premium Starter Kit",
+      "description": "High-end starter kit with premium accessories",
+      "price": 69.99,
+      "images": [
+        "/images/products/10.jpg"
+      ],
+      "category": "starter-kits",
+      "rating": 4.5,
+      "reviews": 21,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.3836797193951096",
+      "name": "Mango Blast Disposable",
+      "description": "Tropical mango flavor disposable vape",
+      "price": 15.99,
+      "images": [
+        "/images/products/11.jpg"
+      ],
+      "category": "disposable",
+      "rating": 4,
+      "reviews": 156,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.6471035855325573",
+      "name": "Mint Fresh Disposable",
+      "description": "Cool mint flavor for refreshing experience",
+      "price": 14.99,
+      "images": [
+        "/images/products/12.jpg"
+      ],
+      "category": "disposable",
+      "rating": 4.2,
+      "reviews": 134,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.7725588094149938",
+      "name": "Berry Mix Disposable",
+      "description": "Mixed berry flavor disposable",
+      "price": 16.99,
+      "images": [
+        "/images/products/13.jpg"
+      ],
+      "category": "disposable",
+      "rating": 3.9,
+      "reviews": 98,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.1248307822282182",
+      "name": "Vanilla Dream Disposable",
+      "description": "Smooth vanilla flavor disposable",
+      "price": 15.99,
+      "images": [
+        "/images/products/14.jpg"
+      ],
+      "category": "disposable",
+      "rating": 4.1,
+      "reviews": 76,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.2905066685858255",
+      "name": "Pod System Elite",
+      "description": "Sleek pod system with refillable cartridges",
+      "price": 35.99,
+      "images": [
+        "/images/products/15.jpg"
+      ],
+      "category": "pod-system",
+      "rating": 4.6,
+      "reviews": 45,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.8076186903826834",
+      "name": "Compact Pod Pro",
+      "description": "Ultra-portable pod system",
+      "price": 42.99,
+      "images": [
+        "/images/products/16.jpg"
+      ],
+      "category": "pod-system",
+      "rating": 4.4,
+      "reviews": 38,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.05984610868641105",
+      "name": "Smart Pod System",
+      "description": "AI-powered pod system with app control",
+      "price": 65.99,
+      "images": [
+        "/images/products/17.jpg"
+      ],
+      "category": "pod-system",
+      "rating": 4.7,
+      "reviews": 22,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.3486939188267957",
+      "name": "Strawberry E-Liquid",
+      "description": "Premium strawberry flavor - 30ml",
+      "price": 19.99,
+      "images": [
+        "/images/products/18.jpg"
+      ],
+      "category": "e-liquid",
+      "rating": 4.4,
+      "reviews": 89,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.890868269885291",
+      "name": "Blue Razz E-Liquid",
+      "description": "Sweet blue raspberry flavor - 30ml",
+      "price": 21.99,
+      "images": [
+        "/images/products/19.jpg"
+      ],
+      "category": "e-liquid",
+      "rating": 4.3,
+      "reviews": 76,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.1423798320914782",
+      "name": "Tobacco Gold E-Liquid",
+      "description": "Classic tobacco flavor - 30ml",
+      "price": 18.99,
+      "images": [
+        "/images/products/20.jpg"
+      ],
+      "category": "e-liquid",
+      "rating": 4,
+      "reviews": 54,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.07494447535122895",
+      "name": "Watermelon E-Liquid",
+      "description": "Fresh watermelon flavor - 30ml",
+      "price": 20.99,
+      "images": [
+        "/images/products/21.jpg"
+      ],
+      "category": "e-liquid",
+      "rating": 4.2,
+      "reviews": 63,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.5258042448104898",
+      "name": "Coffee Cream E-Liquid",
+      "description": "Rich coffee with cream - 30ml",
+      "price": 22.99,
+      "images": [
+        "/images/products/22.jpg"
+      ],
+      "category": "e-liquid",
+      "rating": 4.1,
+      "reviews": 41,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.1790716314635381",
+      "name": "Premium Carrying Case",
+      "description": "Luxury leather carrying case",
+      "price": 24.99,
+      "images": [
+        "/images/products/23.jpg"
+      ],
+      "category": "accessories",
+      "rating": 4.3,
+      "reviews": 28,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.014652569102799662",
+      "name": "Charging Dock Station",
+      "description": "Multi-device charging station",
+      "price": 35.99,
+      "images": [
+        "/images/products/24.jpg"
+      ],
+      "category": "accessories",
+      "rating": 4.5,
+      "reviews": 19,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.39140168304782974",
+      "name": "Coil Pack (5-Pack)",
+      "description": "Replacement coils for various devices",
+      "price": 15.99,
+      "images": [
+        "/images/products/25.jpg"
+      ],
+      "category": "accessories",
+      "rating": 4.6,
+      "reviews": 87,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.08642929132232346",
+      "name": "Limited Edition Gold Mod",
+      "description": "Exclusive gold-plated premium mod",
+      "price": 299.99,
+      "images": [
+        "/images/products/1.jpg"
+      ],
+      "category": "mod",
+      "rating": 4.9,
+      "reviews": 8,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.7462845803791316",
+      "name": "Diamond Series Vape",
+      "description": "Luxury vape with crystal accents",
+      "price": 199.99,
+      "images": [
+        "/images/products/2.jpg"
+      ],
+      "category": "vape-pens",
+      "rating": 4.8,
+      "reviews": 12,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.2773400469799163",
+      "name": "Professional Kit Bundle",
+      "description": "Complete professional vaping setup",
+      "price": 149.99,
+      "images": [
+        "/images/products/3.jpg"
+      ],
+      "category": "starter-kits",
+      "rating": 4.7,
+      "reviews": 16,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.4800360813107549",
+      "name": "Collectors Edition Pod",
+      "description": "Rare collectors edition pod system",
+      "price": 89.99,
+      "images": [
+        "/images/products/4.jpg"
+      ],
+      "category": "pod-system",
+      "rating": 4.6,
+      "reviews": 9,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.9479338893282923",
+      "name": "New Generation Vape 2025",
+      "description": "Latest technology vaping device",
+      "price": 179.99,
+      "images": [
+        "/images/products/IMG-20251013-WA0525.jpg"
+      ],
+      "category": "mod",
+      "rating": 4.8,
+      "reviews": 5,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.44387221052910375",
+      "name": "Smart Connect Vape",
+      "description": "Bluetooth enabled smart vape",
+      "price": 134.99,
+      "images": [
+        "/images/products/IMG-20251013-WA0528.jpg"
+      ],
+      "category": "vape-pens",
+      "rating": 4.5,
+      "reviews": 7,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.18135639159173889",
+      "name": "Ultra Portable Kit",
+      "description": "Most compact vaping solution",
+      "price": 59.99,
+      "images": [
+        "/images/products/5.jpg"
+      ],
+      "category": "starter-kits",
+      "rating": 4.3,
+      "reviews": 11,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "17605814384270.47217835819950715",
+      "name": "Pro Max Disposable",
+      "description": "Extended use disposable vape",
+      "price": 25.99,
+      "images": [
+        "/images/products/6.jpg"
+      ],
+      "category": "disposable",
+      "rating": 4.4,
+      "reviews": 14,
+      "inStock": true,
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "specifications": {},
+      "createdAt": "2025-10-16T02:23:58.427Z",
+      "updatedAt": "2025-10-16T02:23:58.427Z"
+    },
+    {
+      "id": "prod_1760919107126_22u41elro",
+      "name": "Vape pen V7",
+      "description": "7000",
+      "price": 8,
+      "category": "vape-pens",
+      "image": "/images/products/uploaded_1760919102142_0.jpg",
+      "images": [
+        "/images/products/uploaded_1760919102142_0.jpg"
+      ],
+      "specifications": {
+        "Battery Life": "8-12 hours",
+        "Charging Time": "2-3 hours",
+        "Material": "Premium Metal",
+        "Warranty": "1 Year"
+      },
+      "vendorId": "1760581436858",
+      "vendorName": "VapeShop Pro",
+      "inStock": true,
+      "featured": false,
+      "rating": 0,
+      "reviews": [],
+      "createdAt": "2025-10-20T00:11:47.126Z",
+      "updatedAt": "2025-10-20T00:11:47.126Z"
+    }
+  ],
+  "chatMessages": [],
+  "chatSessions": [],
+  "orders": [
+    {
+      "id": "1760584020078",
+      "userId": "1760369233395",
+      "items": [
+        {
+          "productId": "17605814384270.7725588094149938",
+          "productName": "Berry Mix Disposable",
+          "quantity": 1,
+          "price": 16.99
+        }
+      ],
+      "total": 16.99,
+      "status": "delivered",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYD7KEJRRN8",
+      "createdAt": "2025-10-16T03:07:00.078Z",
+      "updatedAt": "2025-10-20T00:07:04.915Z"
+    },
+    {
+      "id": "1760609451007",
+      "userId": "1760585313419",
+      "items": [
+        {
+          "productId": "17605814384270.2905066685858255",
+          "productName": "Pod System Elite",
+          "quantity": 1,
+          "price": 35.99
+        },
+        {
+          "productId": "17605814384270.3836797193951096",
+          "productName": "Mango Blast Disposable",
+          "quantity": 1,
+          "price": 15.99
+        },
+        {
+          "productId": "17605814384270.45510004138824867",
+          "productName": "Titan Mod Elite",
+          "quantity": 1,
+          "price": 159.99
+        }
+      ],
+      "total": 211.97000000000003,
+      "status": "delivered",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYWWTYQCOUM",
+      "createdAt": "2025-10-16T10:10:51.008Z",
+      "updatedAt": "2025-10-20T00:06:59.341Z"
+    },
+    {
+      "id": "1760734281857",
+      "userId": "1760585313419",
+      "items": [
+        {
+          "productId": "17605814384270.9236070073269766",
+          "productName": "Beginner Kit Essential",
+          "quantity": 1,
+          "price": 29.99
+        },
+        {
+          "productId": "17605814384270.21360143198072667",
+          "productName": "Complete Starter Pack",
+          "quantity": 1,
+          "price": 39.99
+        }
+      ],
+      "total": 69.98,
+      "status": "delivered",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYUAHGWQHAK",
+      "createdAt": "2025-10-17T20:51:21.857Z",
+      "updatedAt": "2025-10-20T00:06:53.132Z"
+    },
+    {
+      "id": "1760923886539",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.9236070073269766",
+          "productName": "Beginner Kit Essential",
+          "quantity": 1,
+          "price": 29.99
+        }
+      ],
+      "total": 29.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VY0KSJKY1A0",
+      "createdAt": "2025-10-20T01:31:26.539Z",
+      "updatedAt": "2025-10-20T01:31:26.539Z"
+    },
+    {
+      "id": "1760924029792",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.7725588094149938",
+          "productName": "Berry Mix Disposable",
+          "quantity": 1,
+          "price": 16.99
+        }
+      ],
+      "total": 16.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VY4VSHZJTUA",
+      "createdAt": "2025-10-20T01:33:49.792Z",
+      "updatedAt": "2025-10-20T01:33:49.792Z"
+    },
+    {
+      "id": "1760924359279",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.9236070073269766",
+          "productName": "Beginner Kit Essential",
+          "quantity": 1,
+          "price": 29.99
+        }
+      ],
+      "total": 29.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYW166MAY7E",
+      "createdAt": "2025-10-20T01:39:19.280Z",
+      "updatedAt": "2025-10-20T01:39:19.280Z"
+    },
+    {
+      "id": "1760925204207",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.8076186903826834",
+          "productName": "Compact Pod Pro",
+          "quantity": 1,
+          "price": 42.99
+        }
+      ],
+      "total": 42.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYIQS2BYZK3",
+      "createdAt": "2025-10-20T01:53:24.207Z",
+      "updatedAt": "2025-10-20T01:53:24.207Z"
+    },
+    {
+      "id": "1760925830787",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "prod_1760919107126_22u41elro",
+          "productName": "Vape pen V7",
+          "quantity": 1,
+          "price": 8
+        }
+      ],
+      "total": 8,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYLL7N3B8XW",
+      "createdAt": "2025-10-20T02:03:50.787Z",
+      "updatedAt": "2025-10-20T02:03:50.787Z"
+    },
+    {
+      "id": "1761016419595",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.7725588094149938",
+          "productName": "Berry Mix Disposable",
+          "quantity": 1,
+          "price": 16.99
+        }
+      ],
+      "total": 16.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VY929V6D5U1",
+      "createdAt": "2025-10-21T03:13:39.595Z",
+      "updatedAt": "2025-10-21T03:13:39.595Z"
+    },
+    {
+      "id": "1761016776683",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.7725588094149938",
+          "productName": "Berry Mix Disposable",
+          "quantity": 1,
+          "price": 16.99
+        }
+      ],
+      "total": 16.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYTJTOVBSZQ",
+      "createdAt": "2025-10-21T03:19:36.683Z",
+      "updatedAt": "2025-10-21T03:19:36.683Z"
+    },
+    {
+      "id": "1761017221806",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.7725588094149938",
+          "productName": "Berry Mix Disposable",
+          "quantity": 1,
+          "price": 16.99
+        }
+      ],
+      "total": 16.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYPPK38K1JI",
+      "createdAt": "2025-10-21T03:27:01.806Z",
+      "updatedAt": "2025-10-21T03:27:01.806Z"
+    },
+    {
+      "id": "1761017372489",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.7725588094149938",
+          "productName": "Berry Mix Disposable",
+          "quantity": 1,
+          "price": 16.99
+        }
+      ],
+      "total": 16.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYZU9WFE40A",
+      "createdAt": "2025-10-21T03:29:32.489Z",
+      "updatedAt": "2025-10-21T03:29:32.490Z"
+    },
+    {
+      "id": "1761017848253",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.7725588094149938",
+          "productName": "Berry Mix Disposable",
+          "quantity": 1,
+          "price": 16.99
+        }
+      ],
+      "total": 16.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYQO9TQY0I7",
+      "createdAt": "2025-10-21T03:37:28.253Z",
+      "updatedAt": "2025-10-21T03:37:28.253Z"
+    },
+    {
+      "id": "1761018022152",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.7725588094149938",
+          "productName": "Berry Mix Disposable",
+          "quantity": 1,
+          "price": 16.99
+        }
+      ],
+      "total": 16.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYH0PP0QY0C",
+      "createdAt": "2025-10-21T03:40:22.152Z",
+      "updatedAt": "2025-10-21T03:40:25.725Z",
+      "payment": {
+        "orderId": "1761018022152",
+        "address": "bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t",
+        "amount": "0.00015506",
+        "amountUSD": 16.99,
+        "status": "pending",
+        "expiresAt": "2025-10-22T03:40:25.718Z",
+        "qrCode": "bitcoin:bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t?amount=0.00015506&label=Order_1761018022152&message=Vape4You_Payment",
+        "instructions": [
+          "Send exactly 0.00015506 BTC to the address below",
+          "Always verify the address before sending",
+          "Send the exact amount shown to complete your order",
+          "Contact support if you need assistance"
+        ]
+      }
+    },
+    {
+      "id": "1761018399689",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "17605814384270.7725588094149938",
+          "productName": "Berry Mix Disposable",
+          "quantity": 1,
+          "price": 16.99
+        }
+      ],
+      "total": 16.99,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "sammyaa86@gmail.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYPAYYX8RAB",
+      "createdAt": "2025-10-21T03:46:39.689Z",
+      "updatedAt": "2025-10-21T03:46:41.698Z",
+      "payment": {
+        "orderId": "1761018399689",
+        "address": "bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t",
+        "amount": "0.00015515",
+        "amountUSD": 16.99,
+        "status": "pending",
+        "expiresAt": "2025-10-22T03:46:41.668Z",
+        "qrCode": "bitcoin:bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t?amount=0.00015515",
+        "instructions": [
+          "Send exactly 0.00015515 BTC to the address below",
+          "Always verify the address before sending",
+          "Send the exact amount shown to complete your order",
+          "Contact support if you need assistance"
+        ]
+      }
+    },
+    {
+      "id": "1761022691794",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "68f7116a1692bdcb4b55c3dd",
+          "productName": "Competition Mod Setup #23",
+          "quantity": 1,
+          "price": 20
+        }
+      ],
+      "total": 20,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYL4FQAX04W",
+      "createdAt": "2025-10-21T04:58:11.794Z",
+      "updatedAt": "2025-10-21T04:58:11.794Z"
+    },
+    {
+      "id": "1761022868067",
+      "userId": "1760585603717",
+      "items": [
+        {
+          "productId": "68f7116a1692bdcb4b55c3dd",
+          "productName": "Competition Mod Setup #23",
+          "quantity": 1,
+          "price": 20
+        }
+      ],
+      "total": 20,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYZRIX7BV65",
+      "createdAt": "2025-10-21T05:01:08.067Z",
+      "updatedAt": "2025-10-21T05:01:09.914Z",
+      "payment": {
+        "orderId": "1761022868067",
+        "address": "bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t",
+        "amount": "0.00018549",
+        "amountUSD": 20,
+        "status": "pending",
+        "expiresAt": "2025-10-22T05:01:09.909Z",
+        "qrCode": "bitcoin:bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t?amount=0.00018549",
+        "instructions": [
+          "Send exactly 0.00018549 BTC to the address below",
+          "Always verify the address before sending",
+          "Send the exact amount shown to complete your order",
+          "Contact support if you need assistance"
+        ]
+      }
+    }
+  ]
+}

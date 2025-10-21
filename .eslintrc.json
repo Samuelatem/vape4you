@@ -1,0 +1,17 @@
+{
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "@next/next/no-img-element": "off",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["*.css"],
+      "rules": {
+        "at-rule-no-unknown": ["error", {
+          "ignoreAtRules": ["tailwind", "apply", "variants", "responsive", "screen", "layer"]
+        }]
+      }
+    }
+  ]
+}
