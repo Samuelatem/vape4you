@@ -33,10 +33,10 @@ export default function ProductsPage() {
             id: product._id || product.id,
             vendor: product.vendorId,
             // Handle both rating structures
-            rating: typeof product.rating === 'object' 
-              ? product.rating 
-              : { average: product.rating || 4.5, count: product.reviews || 0 },
-            reviews: product.reviews || product.rating?.count || 0,
+            rating: {
+              average: typeof product.rating === 'object' ? product.rating.average : (product.rating || 4.5),
+              count: typeof product.rating === 'object' ? product.rating.count : (product.reviews || 0)
+            },
             // Handle stock vs inStock
             stock: product.stock !== undefined ? product.stock : (product.inStock ? 50 : 0)
           }))
@@ -67,9 +67,7 @@ export default function ProductsPage() {
         case 'price-high':
           return b.price - a.price
         case 'rating':
-          const aRating = typeof a.rating === 'object' ? a.rating.average : a.rating
-          const bRating = typeof b.rating === 'object' ? b.rating.average : b.rating
-          return bRating - aRating
+          return b.rating.average - a.rating.average
         default:
           return a.name.localeCompare(b.name)
       }
@@ -200,10 +198,7 @@ export default function ProductsPage() {
                     {renderStars(typeof product.rating === 'object' ? product.rating.average : product.rating)}
                   </div>
                   <span className="text-sm text-gray-500">
-                    {typeof product.rating === 'object' 
-                      ? `${product.rating.average.toFixed(1)} (${product.rating.count})`
-                      : `${product.rating.toFixed(1)} (${product.reviews || 0})`
-                    }
+                    {`${product.rating.average.toFixed(1)} (${product.rating.count})`}
                   </span>
                 </div>
 

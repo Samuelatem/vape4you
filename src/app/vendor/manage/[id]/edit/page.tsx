@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { motion } from 'framer-motion'
@@ -32,23 +32,7 @@ export default function EditProduct({ params }: { params: { id: string } }) {
     specifications: {}
   })
 
-  useEffect(() => {
-    if (status === 'loading') return
-    
-    if (!session?.user?.email) {
-      router.push('/auth/login')
-      return
-    }
-
-    if (!session.user.email.includes('vendor')) {
-      router.push('/')
-      return
-    }
-
-    fetchProduct()
-  }, [session, status, params.id, router])
-
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback(async () => {
     try {
       const response = await fetch(`/api/vendor/manage/${params.id}`)
       
@@ -77,7 +61,23 @@ export default function EditProduct({ params }: { params: { id: string } }) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [params.id, router])
+
+  useEffect(() => {
+    if (status === 'loading') return
+    
+    if (!session?.user?.email) {
+      router.push('/auth/login')
+      return
+    }
+
+    if (!session.user.email.includes('vendor')) {
+      router.push('/')
+      return
+    }
+
+    fetchProduct()
+  }, [session, status, params.id, router, fetchProduct])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -315,3 +315,4 @@ export default function EditProduct({ params }: { params: { id: string } }) {
       </div>
     </div>
   )
+}

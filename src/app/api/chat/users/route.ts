@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import mongoose from 'mongoose'
+
+export const dynamic = 'force-dynamic'
 import { authOptions } from '@/lib/auth'
 import { connectDB } from '@/lib/db'
 import { User } from '@/models/User'
@@ -42,12 +44,17 @@ export async function GET(request: NextRequest) {
     }
 
     console.log('Fetching current user:', session.user.id)
-    const currentUser = await User.findById(session.user.id).lean()
+    const currentUser = (await User.findById(session.user.id).lean()) as unknown as {
+      _id: mongoose.Types.ObjectId;
+      role: string;
+      name: string;
+      email: string;
+    }
     
-    if (!currentUser) {
-      console.error('User not found:', session.user.id)
+    if (!currentUser || !currentUser.role) {
+      console.error('User not found or invalid:', session.user.id)
       return NextResponse.json(
-        { error: 'User not found' },
+        { error: 'User not found or invalid' },
         { status: 404 }
       )
     }

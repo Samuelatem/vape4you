@@ -31,6 +31,16 @@ interface LocalOrder {
   trackingNumber?: string
   createdAt: string
   updatedAt: string
+  bitcoinPayment?: {
+    orderId: string
+    address: string
+    amount: string
+    amountUSD: number
+    status: 'pending' | 'confirmed' | 'failed'
+    expiresAt: Date
+    qrCode: string
+    instructions: string[]
+  }
 }
 
 interface LocalUser {

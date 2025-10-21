@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter, useParams } from 'next/navigation'
 import { motion } from 'framer-motion'
@@ -77,18 +77,12 @@ export default function OrderDetailPage() {
   const [order, setOrder] = useState<Order | null>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    if (status === 'loading') return
-
-    if (!session) {
-      router.push('/auth/login')
+  const fetchOrder = useCallback(async () => {
+    if (!params?.id) {
+      router.push('/orders')
       return
     }
-
-    fetchOrder()
-  }, [session, status, router, params.id])
-
-  const fetchOrder = async () => {
+    
     try {
       const response = await fetch(`/api/orders?id=${params.id}`)
       const data = await response.json()
@@ -117,7 +111,18 @@ export default function OrderDetailPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [params?.id, router])
+
+  useEffect(() => {
+    if (status === 'loading') return
+
+    if (!session) {
+      router.push('/auth/login')
+      return
+    }
+
+    fetchOrder()
+  }, [session, status, router, params?.id, fetchOrder])
 
   if (status === 'loading' || loading) {
     return (
@@ -225,7 +230,7 @@ export default function OrderDetailPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              delay={0.1}
+              transition={{ duration: 0.5, delay: 0.1 }}
               className="bg-white rounded-lg shadow-sm p-6"
             >
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Shipping Address</h2>
@@ -245,7 +250,7 @@ export default function OrderDetailPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              delay={0.2}
+              transition={{ duration: 0.5, delay: 0.2 }}
               className="bg-white rounded-lg shadow-sm p-6"
             >
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment Information</h2>

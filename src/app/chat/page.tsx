@@ -423,7 +423,6 @@ export default function ChatPage() {
                     <input
                       type="text"
                       value={message}
-                      onChange={(e) => setMessage(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage()}
                       placeholder="Type your message..."
                       disabled={sending}

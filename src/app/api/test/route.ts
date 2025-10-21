@@ -21,8 +21,8 @@ export async function GET() {
     console.error('Test API error:', error)
     return NextResponse.json({
       success: false,
-      error: error.message,
-      stack: error.stack,
+      error: error instanceof Error ? error.message : 'An unknown error occurred',
+      stack: error instanceof Error ? error.stack : undefined,
     }, { status: 500 })
   }
 }

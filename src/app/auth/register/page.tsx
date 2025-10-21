@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
@@ -8,7 +8,7 @@ import { Eye, EyeOff, Mail, Lock, User, UserCheck } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import toast from 'react-hot-toast'
 
-export default function RegisterPage() {
+function RegistrationForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,13 +22,15 @@ export default function RegisterPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   
-  // Get role from URL params if available
-  useState(() => {
-    const roleFromUrl = searchParams.get('role')
-    if (roleFromUrl && ['vendor', 'client'].includes(roleFromUrl)) {
-      setFormData(prev => ({ ...prev, role: roleFromUrl }))
+  // Get role from URL params if available       
+  useEffect(() => {
+    if (searchParams) {
+      const roleFromUrl = searchParams.get('role')
+      if (roleFromUrl && ['vendor', 'client'].includes(roleFromUrl)) {
+        setFormData(prev => ({ ...prev, role: roleFromUrl as 'vendor' | 'client' }))
+      }
     }
-  })
+  }, [searchParams])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -232,5 +234,18 @@ export default function RegisterPage() {
         </div>
       </motion.div>
     </div>
+  )
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center px-4 py-8">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+        <p className="text-gray-300">Loading registration form...</p>
+      </div>
+    </div>}>
+      <RegistrationForm />
+    </Suspense>
   )
 }

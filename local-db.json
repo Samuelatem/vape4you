@@ -1278,6 +1278,49 @@
           "Contact support if you need assistance"
         ]
       }
+    },
+    {
+      "id": "1761070002772",
+      "userId": "68f7cb447daa32f28e1cad7e",
+      "items": [
+        {
+          "productId": "68f715211692bdcb4b55c403",
+          "productName": "Long-lasting Disposable #16",
+          "quantity": 1,
+          "price": 6
+        }
+      ],
+      "total": 6,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYSVQWSQH3S",
+      "createdAt": "2025-10-21T18:06:42.772Z",
+      "updatedAt": "2025-10-21T18:06:57.186Z",
+      "bitcoinPayment": {
+        "orderId": "1761070002772",
+        "address": "bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t",
+        "amount": "0.00005346",
+        "amountUSD": 6,
+        "status": "pending",
+        "expiresAt": "2025-10-22T18:06:57.186Z",
+        "qrCode": "bitcoin:bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t?amount=0.00005346",
+        "instructions": [
+          "Send exactly 0.00005346 BTC to the address below",
+          "Always verify the address before sending",
+          "Send the exact amount shown to complete your order",
+          "Contact support if you need assistance"
+        ]
+      }
     }
   ]
 }

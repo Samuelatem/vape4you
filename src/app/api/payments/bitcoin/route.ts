@@ -23,12 +23,13 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    if (!order.payment) {
+    if (!order.paymentStatus || order.paymentStatus === 'pending') {
       // Create new payment if not exists
       const paymentData = await createBitcoinPayment(orderId, order.total);
       await localDB.updateOrder(orderId, {
         ...order,
-        payment: paymentData
+        paymentStatus: 'pending',
+        bitcoinPayment: paymentData
       });
       return NextResponse.json({
         success: true,
@@ -39,7 +40,7 @@ export async function GET(request: NextRequest) {
     // Return existing payment data
     return NextResponse.json({
       success: true,
-      payment: order.payment
+      payment: order.bitcoinPayment
     });
   } catch (error) {
     console.error('Bitcoin payment error:', error)
@@ -94,16 +95,15 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    await localDB.updateOrder(orderId, {
+    await localDB.updateOrder(orderId, {        
       ...order,
-      payment: paymentData
-    });
-    
-    console.log('Order updated with payment details');
+      bitcoinPayment: paymentData,
+      paymentStatus: 'pending'
+    });    console.log('Order updated with payment details');
     
     return NextResponse.json({
       success: true,
-      payment: paymentData,
+      bitcoinPayment: paymentData,
       message: 'Please send the exact Bitcoin amount to the provided address.'
     })
   } catch (error) {

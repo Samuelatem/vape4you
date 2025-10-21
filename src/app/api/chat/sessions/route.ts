@@ -36,8 +36,9 @@ export async function GET(request: NextRequest) {
       console.log('MongoDB connected successfully')
     } catch (dbError) {
       console.error('Database connection error:', dbError)
+      const errorMessage = dbError instanceof Error ? dbError.message : 'Unknown error'
       return NextResponse.json(
-        { error: 'Database connection failed', details: dbError.message },
+        { error: 'Database connection failed', details: errorMessage },
         { status: 503 }
       )
     }
@@ -130,15 +131,18 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     console.error('Error fetching chat sessions:', error)
-    console.error('Error details:', {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorDetails = error instanceof Error ? {
       name: error.name,
       message: error.message,
       stack: error.stack
-    })
+    } : { message: 'Unknown error' }
+    
+    console.error('Error details:', errorDetails)
     return NextResponse.json(
       { 
         error: 'Failed to fetch chat sessions',
-        details: error.message
+        details: errorMessage
       },
       { status: 500 }
     )

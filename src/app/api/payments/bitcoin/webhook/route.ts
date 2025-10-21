@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     // Find the order associated with this address
     const orders = await localDB.getOrders();
-    const order = orders.find(o => o.payment?.address === address);
+    const order = orders.find(o => o.bitcoinPayment?.address === address);
 
     if (!order) {
       console.error('No order found for address:', address);
@@ -25,15 +25,23 @@ export async function POST(request: NextRequest) {
 
     // Update order status based on confirmations
     if (confirmations >= 2) {
+      const updatedPayment = {
+        ...order.bitcoinPayment!,
+        status: 'confirmed' as const,
+        orderId: order.id,
+        address: address,
+        amount: order.bitcoinPayment!.amount,
+        amountUSD: order.bitcoinPayment!.amountUSD,
+        expiresAt: order.bitcoinPayment!.expiresAt,
+        qrCode: order.bitcoinPayment!.qrCode,
+        instructions: order.bitcoinPayment!.instructions,
+      };
+
       await localDB.updateOrder(order.id, {
         ...order,
-        status: 'paid',
-        payment: {
-          ...order.payment,
-          status: 'confirmed',
-          txHash: tx_hash,
-          confirmations
-        }
+        status: 'processing',
+        paymentStatus: 'completed',
+        bitcoinPayment: updatedPayment
       });
     }
 

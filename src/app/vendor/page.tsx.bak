@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
@@ -66,27 +66,7 @@ export default function VendorDashboard() {
   const [selectedView, setSelectedView] = useState<string | null>(null)
   const [refreshInterval, setRefreshInterval] = useState<NodeJS.Timeout | null>(null)
 
-  useEffect(() => {
-    if (status === 'loading') return
-
-    if (!session?.user?.email) {
-      router.push('/auth/login')
-      return
-    }
-
-    // Check if user is a vendor by making an API call instead of relying on session.user.role
-    fetchVendorData()
-    
-    // Set up real-time refresh every 30 seconds
-    const interval = setInterval(fetchVendorData, 30000)
-    setRefreshInterval(interval)
-    
-    return () => {
-      if (interval) clearInterval(interval)
-    }
-  }, [session, status, router])
-
-  const fetchVendorData = async () => {
+  const fetchVendorData = useCallback(async () => {
     try {
       // Fetch vendor products
       const productsRes = await fetch('/api/vendor/products')
@@ -130,7 +110,27 @@ export default function VendorDashboard() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [router])
+
+  useEffect(() => {
+    if (status === 'loading') return
+
+    if (!session?.user?.email) {
+      router.push('/auth/login')
+      return
+    }
+
+    // Check if user is a vendor by making an API call instead of relying on session.user.role
+    fetchVendorData()
+    
+    // Set up real-time refresh every 30 seconds
+    const interval = setInterval(fetchVendorData, 30000)
+    setRefreshInterval(interval)
+    
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [session, status, router, fetchVendorData])
 
   const updateOrderStatus = async (orderId: string, newStatus: string) => {
     try {

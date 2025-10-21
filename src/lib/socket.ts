@@ -1,6 +1,12 @@
 import { Server as NetServer } from 'http'
-import { Server as SocketIOServer } from 'socket.io'
+import { Server as SocketIOServer, Socket } from 'socket.io'
 import { NextApiResponse } from 'next'
+
+interface CustomSocket extends Socket {
+  userId?: string
+  userRole?: string
+  userName?: string
+}
 
 export const config = {
   api: {
@@ -32,7 +38,7 @@ export const initSocketServer = (res: NextApiResponseServerIO) => {
 
     const connectedUsers = new Map()
 
-    io.on('connection', (socket) => {
+    io.on('connection', (socket: CustomSocket) => {
       console.log('✅ Client connected:', socket.id)
 
       socket.on('join-user', ({ userId, role, name }) => {
