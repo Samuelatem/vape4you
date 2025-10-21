@@ -11,7 +11,6 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Get user to check role
     const user = await localDB.findUserByEmail(session.user.email)
     if (!user || user.role !== 'vendor') {
       return NextResponse.json({ error: 'Unauthorized - Vendor access required' }, { status: 401 })
@@ -42,7 +41,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Get user to check role
     const user = await localDB.findUserByEmail(session.user.email)
     if (!user || user.role !== 'vendor') {
       return NextResponse.json({ error: 'Unauthorized - Vendor access required' }, { status: 401 })
@@ -62,37 +60,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     console.error('Error updating product:', error)
     return NextResponse.json(
       { error: 'Failed to update product' },
-      { status: 500 }
-    )
-  }
-}
-
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-  try {
-    const session = await getServerSession(authOptions)
-    
-    if (!session?.user?.email) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    // Get user to check role
-    const user = await localDB.findUserByEmail(session.user.email)
-    if (!user || user.role !== 'vendor') {
-      return NextResponse.json({ error: 'Unauthorized - Vendor access required' }, { status: 401 })
-    }
-
-    const productId = params.id
-    const success = await localDB.deleteProduct(productId)
-    
-    if (!success) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 })
-    }
-
-    return NextResponse.json({ message: 'Product deleted successfully' })
-  } catch (error) {
-    console.error('Error deleting product:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete product' },
       { status: 500 }
     )
   }

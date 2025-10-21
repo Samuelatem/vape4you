@@ -40,7 +40,6 @@ export default function EditProduct({ params }: { params: { id: string } }) {
       return
     }
 
-    // Check if user is vendor
     if (!session.user.email.includes('vendor')) {
       router.push('/')
       return
@@ -51,15 +50,10 @@ export default function EditProduct({ params }: { params: { id: string } }) {
 
   const fetchProduct = async () => {
     try {
-      console.log('Fetching product with ID:', params.id)
-      const response = await fetch(`/api/vendor/products/${params.id}`)
-      console.log('Response status:', response.status)
+      const response = await fetch(`/api/vendor/manage/${params.id}`)
       
       if (response.ok) {
         const product = await response.json()
-        console.log('Fetched product:', product)
-        
-        // Validate that we got a proper product object
         if (!product || typeof product !== 'object') {
           throw new Error('Invalid product data received')
         }
@@ -69,13 +63,11 @@ export default function EditProduct({ params }: { params: { id: string } }) {
           description: product.description || '',
           price: product.price?.toString() || '',
           category: product.category || '',
-          images: product.images || [product.image].filter(Boolean) || [],
+          images: product.images || [],
           inStock: product.inStock !== false,
           specifications: product.specifications || {}
         })
       } else {
-        const errorText = await response.text()
-        console.error('Failed to fetch product:', response.status, errorText)
         throw new Error(`Failed to load product: ${response.status}`)
       }
     } catch (error) {
@@ -92,7 +84,7 @@ export default function EditProduct({ params }: { params: { id: string } }) {
     setSaving(true)
 
     try {
-      const response = await fetch(`/api/vendor/products/${params.id}`, {
+      const response = await fetch(`/api/vendor/manage/${params.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -162,16 +154,6 @@ export default function EditProduct({ params }: { params: { id: string } }) {
     )
   }
 
-  if (!session.user.email.includes('vendor')) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-600">Access denied. Vendor account required.</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -209,7 +191,7 @@ export default function EditProduct({ params }: { params: { id: string } }) {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Price ($)
+                  Price (€)
                 </label>
                 <input
                   type="number"
@@ -233,11 +215,11 @@ export default function EditProduct({ params }: { params: { id: string } }) {
                 required
               >
                 <option value="">Select a category</option>
-                <option value="Vape Pens">Vape Pens</option>
-                <option value="E-Liquids">E-Liquids</option>
-                <option value="Accessories">Accessories</option>
-                <option value="Disposables">Disposables</option>
-                <option value="Mods">Mods</option>
+                <option value="disposable">Disposable</option>
+                <option value="pod-system">Pod System</option>
+                <option value="mod">Mod</option>
+                <option value="e-liquid">E-Liquid</option>
+                <option value="accessories">Accessories</option>
               </select>
             </div>
 
@@ -333,4 +315,3 @@ export default function EditProduct({ params }: { params: { id: string } }) {
       </div>
     </div>
   )
-}
