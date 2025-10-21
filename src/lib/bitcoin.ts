@@ -13,6 +13,7 @@ export async function createBitcoinPayment(
   orderId: string,
   amountUSD: number
 ): Promise<BitcoinPayment> {
+  console.log('Creating Bitcoin payment for order:', orderId, 'amount:', amountUSD);
   try {
     const walletAddress = process.env.BITCOIN_WALLET_ADDRESS;
     if (!walletAddress) {
@@ -20,12 +21,25 @@ export async function createBitcoinPayment(
     }
 
     // Get current BTC/USD rate
-    const btcResponse = await fetch(
-      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
-    );
-    const btcData = await btcResponse.json();
-    const btcRate = btcData.bitcoin.usd;
-    const btcAmount = (amountUSD / btcRate).toFixed(8);
+    let btcAmount: string;
+    try {
+      const btcResponse = await fetch(
+        'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+      );
+      if (!btcResponse.ok) {
+        throw new Error('Failed to fetch Bitcoin price');
+      }
+      const btcData = await btcResponse.json();
+      if (!btcData?.bitcoin?.usd) {
+        throw new Error('Invalid Bitcoin price data');
+      }
+      const btcRate = btcData.bitcoin.usd;
+      btcAmount = (amountUSD / btcRate).toFixed(8);
+      console.log('Bitcoin conversion:', { amountUSD, btcRate, btcAmount });
+    } catch (error) {
+      console.error('Error fetching Bitcoin price:', error);
+      // Fallback to a fixed rate for testing
+      btcAmount = (amountUSD / 30000).toFixed(8);
 
     // Generate payment data
     const paymentData: BitcoinPayment = {

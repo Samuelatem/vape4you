@@ -14,9 +14,29 @@ export async function POST(request: NextRequest) {
 
     const { items, total, paymentMethod, shippingAddress } = await request.json()
 
-    if (!items || !total || !paymentMethod || !shippingAddress) {
+    console.log('Received order data:', { items, total, paymentMethod, shippingAddress })
+
+    // Validate required fields
+    const missingFields = [];
+    if (!items) missingFields.push('items');
+    if (!total) missingFields.push('total');
+    if (!paymentMethod) missingFields.push('paymentMethod');
+    if (!shippingAddress) missingFields.push('shippingAddress');
+
+    if (missingFields.length > 0) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: `Missing required fields: ${missingFields.join(', ')}` },
+        { status: 400 }
+      )
+    }
+
+    // Validate shipping address
+    const requiredAddressFields = ['address', 'city', 'postalCode', 'country'];
+    const missingAddressFields = requiredAddressFields.filter(field => !shippingAddress[field]);
+
+    if (missingAddressFields.length > 0) {
+      return NextResponse.json(
+        { error: `Missing required address fields: ${missingAddressFields.join(', ')}` },
         { status: 400 }
       )
     }
@@ -29,14 +49,32 @@ export async function POST(request: NextRequest) {
       shippingAddress
     })
 
-    const order = await createOrder({
+    // Format shipping address to match schema
+    const formattedAddress = {
+      street: shippingAddress.address,
+      city: shippingAddress.city,
+      state: shippingAddress.state || 'N/A',
+      zipCode: shippingAddress.postalCode,
+      country: shippingAddress.country
+    };
+
+    const orderData = {
       userId: session.user.id!,
-      items,
+      items: items.map((item: any) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        price: item.price
+      })),
       total,
       paymentMethod,
-      shippingAddress,
-      status: 'pending'
-    })
+      shippingAddress: formattedAddress,
+      status: 'pending',
+      paymentStatus: 'pending'
+    };
+
+    console.log('Creating order with formatted data:', orderData);
+
+    const order = await createOrder(orderData)
 
     console.log('Order created:', order)
 
