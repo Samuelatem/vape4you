@@ -6,7 +6,10 @@ import { User } from '@/models/User'
 import { connectDB } from '@/lib/db'
 import { localDB } from '@/lib/local-db'
 
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET || 'your-development-secret-key'
+
 export const authOptions: NextAuthOptions = {
+  secret: NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -137,4 +140,5 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/auth/login',
   },
+  debug: process.env.NODE_ENV === 'development',
 }
