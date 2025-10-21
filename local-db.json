@@ -1235,6 +1235,49 @@
           "Contact support if you need assistance"
         ]
       }
+    },
+    {
+      "id": "1761052523535",
+      "userId": "68f787400d5634a19bc163cb",
+      "items": [
+        {
+          "productId": "68f715211692bdcb4b55c40a",
+          "productName": "Competition Mod Setup #23",
+          "quantity": 1,
+          "price": 20
+        }
+      ],
+      "total": 20,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "email": "samuel.atem1@icloud.com",
+        "firstName": "ATEM",
+        "lastName": "Samuel",
+        "address": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "postalCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VYZQYFMJDXB",
+      "createdAt": "2025-10-21T13:15:23.535Z",
+      "updatedAt": "2025-10-21T13:15:25.688Z",
+      "payment": {
+        "orderId": "1761052523535",
+        "address": "bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t",
+        "amount": "0.00018431",
+        "amountUSD": 20,
+        "status": "pending",
+        "expiresAt": "2025-10-22T13:15:25.682Z",
+        "qrCode": "bitcoin:bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t?amount=0.00018431",
+        "instructions": [
+          "Send exactly 0.00018431 BTC to the address below",
+          "Always verify the address before sending",
+          "Send the exact amount shown to complete your order",
+          "Contact support if you need assistance"
+        ]
+      }
     }
   ]
 }
