@@ -24,9 +24,7 @@ export async function createOrder(orderData: any) {
       ...orderData,
       userId: new Types.ObjectId(orderData.userId),
       items: orderData.items.map((item: any) => ({
-        ...item,
         productId: new Types.ObjectId(item.productId),
-        productId: item.productId,
         quantity: item.quantity,
         price: item.price
       })),
