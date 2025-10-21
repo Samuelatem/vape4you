@@ -1,13 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'vape4you-com.onrender.com',
+        pathname: '/**',
       }
-    ],
-    unoptimized: process.env.NODE_ENV === 'development'
+    ]
   },
   env: {
     MONGODB_URI: process.env.MONGODB_URI,

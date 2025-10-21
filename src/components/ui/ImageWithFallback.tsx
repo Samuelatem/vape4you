@@ -22,15 +22,20 @@ export function ImageWithFallback({
 }: ImageWithFallbackProps) {
   const [error, setError] = useState(false)
 
-  return (
-    <Image
-      src={error ? '/images/products/placeholder.svg' : src}
-      alt={alt}
-      fill={fill}
-      className={className}
-      sizes={sizes}
-      priority={priority}
-      onError={() => setError(true)}
-    />
+  const imageProps = {
+    src: error ? '/images/products/placeholder.svg' : src,
+    alt,
+    fill,
+    className,
+    sizes,
+    priority,
+    onError: () => setError(true),
+    loading: priority ? 'eager' : 'lazy',
+    quality: 75,
+    width: fill ? undefined : 640,
+    height: fill ? undefined : 640,
+  }
+
+  return <Image {...imageProps} />
   )
 }

@@ -87,7 +87,14 @@ export default function CheckoutPage() {
         })),
         total: getTotal(),
         paymentMethod: selectedPayment,
-        shippingAddress: formData
+        shippingAddress: {
+          street: formData.address,
+          city: formData.city,
+          state: 'N/A',
+          zipCode: formData.postalCode,
+          country: formData.country
+        }
+      }
       }
       console.log('Order payload:', orderPayload)
 
