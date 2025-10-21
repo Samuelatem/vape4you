@@ -1,6 +1,7 @@
 import { connectDB } from './db'
 import { localDB } from './local-db'
 import { Order } from '@/models/Order'
+import { Types } from 'mongoose'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -21,10 +22,10 @@ export async function createOrder(orderData: any) {
     // Format and validate the data
     const formattedData = {
       ...orderData,
-      userId: new mongoose.Types.ObjectId(orderData.userId),
+      userId: new Types.ObjectId(orderData.userId),
       items: orderData.items.map((item: any) => ({
         ...item,
-        productId: new mongoose.Types.ObjectId(item.productId),
+        productId: new Types.ObjectId(item.productId),
         productId: item.productId,
         quantity: item.quantity,
         price: item.price
