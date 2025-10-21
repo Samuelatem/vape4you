@@ -6,10 +6,16 @@ import { User } from '@/models/User'
 import { connectDB } from '@/lib/db'
 import { localDB } from '@/lib/local-db'
 
-const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET || 'your-development-secret-key'
+if (!process.env.NEXTAUTH_URL && process.env.VERCEL_URL) {
+  process.env.NEXTAUTH_URL = `https://${process.env.VERCEL_URL}`
+}
+
+if (!process.env.NEXTAUTH_SECRET) {
+  process.env.NEXTAUTH_SECRET = 'fallback-development-secret-key-do-not-use-in-production'
+}
 
 export const authOptions: NextAuthOptions = {
-  secret: NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -23,6 +29,11 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
+          if (!process.env.MONGODB_URI) {
+            console.error('MONGODB_URI is not defined')
+            return null
+          }
+
           let user: any = null
           let useLocalDB = false
 
