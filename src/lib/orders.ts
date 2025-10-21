@@ -11,45 +11,67 @@ export async function createOrder(orderData: any) {
 
   try {
     console.log('Connecting to MongoDB...')
-    await connectDB()
+    const db = await connectDB()
+    console.log('MongoDB connection state:', db.connection.readyState)
     
-    // Convert string IDs to ObjectIds if needed
-    const userId = orderData.userId.toString()
-    const items = orderData.items.map((item: any) => ({
-      ...item,
-      productId: item.productId.toString()
-    }))
-
-    console.log('Creating order with data:', {
+    // Format and validate the data
+    const formattedData = {
       ...orderData,
-      userId,
-      items
-    })
-
-    const order = new Order({
-      ...orderData,
-      userId,
-      items,
+      userId: orderData.userId,
+      items: orderData.items.map((item: any) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        price: item.price
+      })),
+      shippingAddress: {
+        street: orderData.shippingAddress.address,
+        city: orderData.shippingAddress.city,
+        state: orderData.shippingAddress.state || 'N/A',
+        zipCode: orderData.shippingAddress.postalCode,
+        country: orderData.shippingAddress.country
+      },
       createdAt: new Date(),
       updatedAt: new Date()
-    })
+    }
+
+    console.log('Creating order with formatted data:', JSON.stringify(formattedData, null, 2))
+
+    const order = new Order(formattedData)
+
+    // Validate the order data
+    const validationError = order.validateSync()
+    if (validationError) {
+      console.error('Validation error:', validationError)
+      throw new Error(`Order validation failed: ${Object.values(validationError.errors).map(e => e.message).join(', ')}`)
+    }
 
     console.log('Saving order...')
     await order.save()
     console.log('Order saved successfully:', order)
+  } catch (error: any) {
+    console.error('Error creating order:', {
+      error: error,
+      message: error.message,
+      code: error.code,
+      name: error.name,
+      stack: error.stack
+    })
 
-    return order
-  } catch (error) {
-    console.error('Error creating order:', error)
-    if (error instanceof Error) {
-      if (error.message.includes('validation failed')) {
-        throw new Error('Order validation failed: Please check all required fields')
-      }
-      if (error.message.includes('duplicate key')) {
-        throw new Error('Order already exists')
-      }
+    // Handle specific MongoDB errors
+    if (error.name === 'ValidationError') {
+      throw new Error(`Order validation failed: ${Object.values(error.errors).map(e => (e as any).message).join(', ')}`)
     }
-    throw new Error('Failed to create order: Database error')
+    if (error.name === 'MongoServerError' && error.code === 11000) {
+      throw new Error('Order already exists')
+    }
+    if (error.name === 'MongooseServerSelectionError') {
+      throw new Error('Failed to connect to database. Please try again later.')
+    }
+    if (error.name === 'MongooseError') {
+      throw new Error(`Database error: ${error.message}`)
+    }
+    
+    throw new Error(`Failed to create order: ${error.message || 'Unknown database error'}`)
   }
 }
 
