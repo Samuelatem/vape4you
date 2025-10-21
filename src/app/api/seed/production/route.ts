@@ -3,29 +3,28 @@ import seedDatabase from '@/lib/seed'
 
 export async function POST(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url)
-    const seedKey = searchParams.get('key')
-    if (seedKey !== 'vape4you-seed-2023') {
+    const authHeader = request.headers.get('authorization')
+    const expectedToken = process.env.ADMIN_SEED_TOKEN
+
+    if (!authHeader || !expectedToken || authHeader !== `Bearer ${expectedToken}`) {
       return NextResponse.json(
-        { error: 'Unauthorized seeding attempt' },
-        { status: 403 }
+        { error: 'Unauthorized' },
+        { status: 401 }
       )
     }
-    
+
     await seedDatabase()
     
     return NextResponse.json({
       success: true,
       message: 'Database seeded successfully with all 25 products',
       data: {
-        productsCreated: 25,
-        vendorEmail: 'vendor@vape4you.com',
-        vendorPassword: 'password123'
+        productsCreated: 25
       }
     })
     
   } catch (error) {
-    console.error('Seeding API error:', error)
+    console.error('Production seeding error:', error)
     return NextResponse.json(
       { error: 'Failed to seed database' },
       { status: 500 }

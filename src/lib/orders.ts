@@ -24,7 +24,7 @@ export async function createOrder(orderData: any) {
         price: item.price
       })),
       shippingAddress: {
-        street: orderData.shippingAddress.address,
+        street: orderData.shippingAddress.street || orderData.shippingAddress.address,
         city: orderData.shippingAddress.city,
         state: orderData.shippingAddress.state || 'N/A',
         zipCode: orderData.shippingAddress.postalCode,
@@ -46,8 +46,9 @@ export async function createOrder(orderData: any) {
     }
 
     console.log('Saving order...')
-    await order.save()
-    console.log('Order saved successfully:', order)
+    const savedOrder = await order.save()
+    console.log('Order saved successfully:', savedOrder)
+    return savedOrder
   } catch (error: any) {
     console.error('Error creating order:', {
       error: error,

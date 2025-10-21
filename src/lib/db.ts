@@ -49,7 +49,10 @@ async function dbConnect() {
         serverSelectionTimeoutMS: 30000,
         socketTimeoutMS: 45000,
         connectTimeoutMS: 20000,
-        maxPoolSize: 10
+        maxPoolSize: 10,
+        retryWrites: true,
+        retryReads: true,
+        w: 'majority'
       }
       
       // Clear any existing connection

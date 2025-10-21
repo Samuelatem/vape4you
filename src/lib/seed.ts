@@ -26,11 +26,12 @@ async function seedDatabase() {
     
     console.log('✅ Created vendor user')
     
-    // Create products with the vendor ID
+    // Create products with the vendor ID - ensure exact price matching
     const productsWithVendor = productData.map(product => ({
       ...product,
       vendorId: vendor._id,
       isActive: true,
+      price: Number(product.price), // Ensure price is exactly as specified
       views: Math.floor(Math.random() * 100) + 10,
       rating: product.rating || { average: 4.5, count: 0 }
     }))
