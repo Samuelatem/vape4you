@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createBitcoinPayment } from '@/lib/bitcoin';
+import { connectDB } from '@/lib/db';
+import { Order } from '@/models/Order';
+import { isDevelopment } from '@/lib/utils';
 import { localDB } from '@/lib/local-db';
 
 export async function GET(request: NextRequest) {
@@ -26,11 +29,19 @@ export async function GET(request: NextRequest) {
     if (!order.paymentStatus || order.paymentStatus === 'pending') {
       // Create new payment if not exists
       const paymentData = await createBitcoinPayment(orderId, order.total);
-      await localDB.updateOrder(orderId, {
-        ...order,
-        paymentStatus: 'pending',
-        bitcoinPayment: paymentData
-      });
+      if (isDevelopment) {
+        await localDB.updateOrder(orderId, {
+          ...order,
+          paymentStatus: 'pending',
+          bitcoinPayment: paymentData
+        });
+      } else {
+        await Order.findByIdAndUpdate(orderId, {
+          paymentStatus: 'pending',
+          bitcoinPayment: paymentData,
+          updatedAt: new Date()
+        });
+      }
       return NextResponse.json({
         success: true,
         payment: paymentData
@@ -86,20 +97,40 @@ export async function POST(request: NextRequest) {
     console.log('Payment data created:', paymentData);
     
     // Update the order with payment information
-    const order = await localDB.getOrderById(orderId);
-    if (!order) {
-      console.error('Order not found:', orderId);
-      return NextResponse.json(
-        { success: false, error: 'Order not found' },
-        { status: 404 }
+    let order;
+    if (isDevelopment) {
+      order = await localDB.getOrderById(orderId);
+      if (!order) {
+        console.error('Order not found:', orderId);
+        return NextResponse.json(
+          { success: false, error: 'Order not found' },
+          { status: 404 }
+        );
+      }
+      await localDB.updateOrder(orderId, {
+        ...order,
+        bitcoinPayment: paymentData,
+        paymentStatus: 'pending'
+      });
+    } else {
+      await connectDB();
+      order = await Order.findByIdAndUpdate(
+        orderId,
+        {
+          bitcoinPayment: paymentData,
+          paymentStatus: 'pending',
+          updatedAt: new Date()
+        },
+        { new: true }
       );
-    }
-    
-    await localDB.updateOrder(orderId, {        
-      ...order,
-      bitcoinPayment: paymentData,
-      paymentStatus: 'pending'
-    });    console.log('Order updated with payment details');
+      if (!order) {
+        console.error('Order not found:', orderId);
+        return NextResponse.json(
+          { success: false, error: 'Order not found' },
+          { status: 404 }
+        );
+      }
+    }    console.log('Order updated with payment details');
     
     return NextResponse.json({
       success: true,
