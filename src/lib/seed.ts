@@ -7,9 +7,14 @@ import bcrypt from 'bcryptjs'
 
 async function seedDatabase() {
   try {
-    await dbConnect()
-    
     console.log('🌱 Starting database seeding...')
+    console.log('Connecting to database...')
+    const db = await dbConnect()
+    console.log('Database connection state:', db.connection.readyState)
+    
+    if (db.connection.readyState !== 1) {
+      throw new Error('Database connection is not ready')
+    }
     
     // Clear existing data
     console.log('Clearing existing data...')
@@ -41,14 +46,27 @@ async function seedDatabase() {
       rating: product.rating || { average: 4.5, count: 0 }
     }))
     
+    console.log('Creating products...')
     const insertedProducts = await Product.insertMany(productsWithVendor)
     
     // Verify prices were set correctly
-    const priceCheck = insertedProducts.every((product, index) => 
-      product.price === productData[index].price
-    )
+    const priceCheck = insertedProducts.map((product, index) => ({
+      name: product.name,
+      expectedPrice: productData[index].price,
+      actualPrice: product.price,
+      matched: product.price === productData[index].price
+    }))
     
-    console.log(`✅ Created ${productData.length} products${priceCheck ? ' with verified prices' : ' (WARNING: price mismatch)'}`)
+    const allPricesMatch = priceCheck.every(p => p.matched)
+    
+    console.log('Price verification results:')
+    priceCheck.forEach(p => {
+      if (!p.matched) {
+        console.log(`❌ Price mismatch for ${p.name}: expected ${p.expectedPrice}, got ${p.actualPrice}`)
+      }
+    })
+    
+    console.log(`✅ Created ${productData.length} products${allPricesMatch ? ' with verified prices' : ' (WARNING: price mismatches found)'}`)
     console.log('🎉 Database seeding completed successfully!')
     
     // Log sample credentials
