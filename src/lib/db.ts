@@ -13,6 +13,10 @@ if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local')
 }
 
+if (!MONGODB_URI.startsWith('mongodb://') && !MONGODB_URI.startsWith('mongodb+srv://')) {
+  throw new Error('Invalid MongoDB connection string format. Must start with "mongodb://" or "mongodb+srv://"')
+}
+
 interface CachedConnection {
   conn: typeof mongoose | null
   promise: Promise<typeof mongoose> | null
