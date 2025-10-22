@@ -23,32 +23,30 @@ function PaymentContent() {
   
   const [paymentData, setPaymentData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState<string | null>(null)
 
   useEffect(() => {
     if (!orderId || !paymentMethod) {
-      console.error('Missing orderId or paymentMethod')
-      router.push('/cart')
+      setError('Missing order or payment method information')
+      setTimeout(() => router.push('/cart'), 3000)
       return
     }
-
-    console.log('Payment page loaded with:', { orderId, paymentMethod })
 
     const fetchPaymentData = async () => {
       try {
         setLoading(true)
-        console.log('Fetching payment data...')
+        setError(null)
+        
         const response = await fetch(`/api/payments/bitcoin?orderId=${orderId}`, {
           method: 'GET'
         })
         
         if (!response.ok) {
-          console.error('Payment fetch failed:', response.status, response.statusText)
-          throw new Error('Failed to fetch payment data')
+          throw new Error(`Payment fetch failed: ${response.status}`)
         }
 
         const data = await response.json()
-        console.log('Payment data received:', data)
         
         if (!data.success) {
           throw new Error(data.error || 'Payment not found')
@@ -56,9 +54,8 @@ function PaymentContent() {
 
         setPaymentData(data.payment)
       } catch (error) {
-        console.error('Error fetching payment:', error)
-        alert('Error loading payment details. Returning to cart.')
-        router.push('/cart')
+        const errorMessage = error instanceof Error ? error.message : 'Failed to load payment details'
+        setError(errorMessage)
       } finally {
         setLoading(false)
       }
@@ -75,6 +72,28 @@ function PaymentContent() {
     } catch (error) {
       console.error('Failed to copy:', error)
     }
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto p-6">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-red-600 text-2xl">!</span>
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Payment Error</h2>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <div className="space-y-2">
+            <Button onClick={() => window.location.reload()} className="w-full">
+              Try Again
+            </Button>
+            <Button onClick={() => router.push('/cart')} variant="outline" className="w-full">
+              Back to Cart
+            </Button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (loading) {
@@ -114,13 +133,21 @@ function PaymentContent() {
         >
           {/* Header */}
           <div className={`${colorClass} text-white p-6`}>
-            <div className="flex items-center">
-              <PaymentIcon className="w-8 h-8 mr-3" />
-              <div>
-                <h1 className="text-2xl font-bold capitalize">
-                  {paymentMethod} Payment
-                </h1>
-                <p className="text-white/90">Order #{orderId}</p>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <PaymentIcon className="w-8 h-8 mr-3" />
+                <div>
+                  <h1 className="text-2xl font-bold capitalize">
+                    {paymentMethod} Payment
+                  </h1>
+                  <p className="text-white/90">Order #{orderId}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="flex items-center text-green-200">
+                  <CheckCircle className="w-5 h-5 mr-1" />
+                  <span className="text-sm">Ready</span>
+                </div>
               </div>
             </div>
           </div>
