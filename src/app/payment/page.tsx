@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Bitcoin, CreditCard, Smartphone, Banknote, Copy, CheckCircle, Clock, QrCode } from 'lucide-react'
@@ -15,18 +15,30 @@ const paymentColors = {
   bitcoin: 'bg-orange-500'
 }
 
-function PaymentContent() {
+export default function PaymentPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const orderId = searchParams?.get('order')
-  const paymentMethod = (searchParams?.get('method') || 'bitcoin') as keyof typeof paymentIcons
-  
+  const [mounted, setMounted] = useState(false)
+  const [orderId, setOrderId] = useState<string | null>(null)
+  const [paymentMethod, setPaymentMethod] = useState<keyof typeof paymentIcons>('bitcoin')
   const [paymentData, setPaymentData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState<string | null>(null)
 
+  // Handle client-side mounting
   useEffect(() => {
+    setMounted(true)
+    const orderParam = searchParams?.get('order')
+    const methodParam = searchParams?.get('method') || 'bitcoin'
+    
+    setOrderId(orderParam)
+    setPaymentMethod(methodParam as keyof typeof paymentIcons)
+  }, [searchParams])
+
+  useEffect(() => {
+    if (!mounted || !orderId) return
+
     if (!orderId || !paymentMethod) {
       setError('Missing order or payment method information')
       setTimeout(() => router.push('/cart'), 3000)
@@ -39,7 +51,10 @@ function PaymentContent() {
         setError(null)
         
         const response = await fetch(`/api/payments/bitcoin?orderId=${orderId}`, {
-          method: 'GET'
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         })
         
         if (!response.ok) {
@@ -62,16 +77,42 @@ function PaymentContent() {
     }
 
     fetchPaymentData()
-  }, [orderId, paymentMethod, router])
+  }, [mounted, orderId, paymentMethod, router])
 
   const copyToClipboard = async (text: string, key: string) => {
     try {
-      await navigator.clipboard.writeText(text)
-      setCopied(key)
-      setTimeout(() => setCopied(null), 2000)
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text)
+        setCopied(key)
+        setTimeout(() => setCopied(null), 2000)
+      } else {
+        // Fallback for mobile browsers that don't support clipboard API
+        const textArea = document.createElement('textarea')
+        textArea.value = text
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+        setCopied(key)
+        setTimeout(() => setCopied(null), 2000)
+      }
     } catch (error) {
       console.error('Failed to copy:', error)
+      // Show a fallback message for mobile
+      alert(`Copy this: ${text}`)
     }
+  }
+
+  // Show loading until mounted (prevents hydration mismatch)
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Initializing payment...</p>
+        </div>
+      </div>
+    )
   }
 
   if (error) {
@@ -243,18 +284,19 @@ function PaymentContent() {
 
                 {/* QR Code for Bitcoin payment */}
                 <div className="text-center mb-6">
-                  <div className="bg-white border-2 border-gray-200 rounded-lg p-4 inline-block">
-                    <img
-                      src={`https://chart.googleapis.com/chart?chs=256x256&cht=qr&chl=${encodeURIComponent(paymentData.qrCode)}&choe=UTF-8`}
-                      alt="Bitcoin Payment QR Code"
-                      className="w-64 h-64"
-                    />
-                    <p className="text-sm text-gray-600 mt-2">
-                      {paymentData.amount} BTC to {paymentData.address}
-                    </p>
-                    <p className="text-sm text-gray-600 mt-2">
-                      Scan with your Bitcoin wallet
-                    </p>
+                  <div className="bg-white border-2 border-gray-200 rounded-lg p-4 inline-block max-w-full">
+                    <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto">
+                      <img
+                        src={`https://chart.googleapis.com/chart?chs=256x256&cht=qr&chl=${encodeURIComponent(paymentData.qrCode)}&choe=UTF-8`}
+                        alt="Bitcoin Payment QR Code"
+                        className="w-full h-full object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="mt-2 text-xs sm:text-sm text-gray-600 break-all">
+                      <p className="font-medium">{paymentData.amount} BTC</p>
+                      <p className="text-xs opacity-75">Scan with your Bitcoin wallet</p>
+                    </div>
                   </div>
                 </div>
 
@@ -286,18 +328,5 @@ function PaymentContent() {
         </motion.div>
       </div>
     </div>
-  )
-}
-
-export default function PaymentPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-        <p className="text-gray-600">Loading payment details...</p>
-      </div>
-    </div>}>
-      <PaymentContent />
-    </Suspense>
   )
 }
