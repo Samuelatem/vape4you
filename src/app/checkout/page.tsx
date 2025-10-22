@@ -33,6 +33,7 @@ export default function CheckoutPage() {
     lastName: '',
     address: '',
     city: '',
+    state: '',
     postalCode: '',
     country: ''
   })
@@ -64,7 +65,7 @@ export default function CheckoutPage() {
 
   const handlePayment = async () => {
     // Validate form
-    const requiredFields = ['email', 'firstName', 'lastName', 'address', 'city', 'postalCode', 'country']
+    const requiredFields = ['email', 'firstName', 'lastName', 'address', 'city', 'state', 'postalCode', 'country']
     const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData]?.trim())
     
     if (missingFields.length > 0) {
@@ -93,7 +94,7 @@ export default function CheckoutPage() {
         shippingAddress: {
           street: formData.address,
           city: formData.city,
-          state: formData.state || 'N/A',
+          state: formData.state,
           zipCode: formData.postalCode,
           country: formData.country || 'USA'
         }
@@ -228,7 +229,7 @@ export default function CheckoutPage() {
                       required
                     />
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         City
@@ -237,6 +238,19 @@ export default function CheckoutPage() {
                         type="text"
                         name="city"
                         value={formData.city}
+                        onChange={handleInputChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        State
+                      </label>
+                      <input
+                        type="text"
+                        name="state"
+                        value={formData.state}
                         onChange={handleInputChange}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                         required
