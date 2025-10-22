@@ -126,7 +126,7 @@ export default function CheckoutPage() {
       // Clear cart and redirect to payment page for instructions
       console.log('Payment successful, redirecting...')
       clearCart()
-      const paymentUrl = `/payment?order=${encodeURIComponent(orderResult.order.id)}&method=${encodeURIComponent(selectedPayment)}`
+      const paymentUrl = `/payment?order=${encodeURIComponent(orderResult.order._id || orderResult.order.id)}&method=${encodeURIComponent(selectedPayment)}`
       console.log('Redirecting to:', paymentUrl)
       
       // Use replace instead of push to avoid navigation issues
@@ -141,10 +141,11 @@ export default function CheckoutPage() {
 
   const processBitcoinPayment = async (order: any) => {
     try {
+      console.log('Processing Bitcoin payment for order:', order);
       const response = await fetch('/api/payments/bitcoin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orderId: order.id, amount: order.total })
+        body: JSON.stringify({ orderId: order._id || order.id, amount: order.total })
       })
       return await response.json()
     } catch (error) {
