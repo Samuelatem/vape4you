@@ -30,10 +30,9 @@ export function ImageWithFallback({
     sizes,
     priority,
     onError: () => setError(true),
-    loading: priority ? 'eager' : 'lazy',
+    loading: (priority ? 'eager' : 'lazy') as 'eager' | 'lazy',
     quality: 75,
-    width: fill ? undefined : 640,
-    height: fill ? undefined : 640,
+    ...(fill ? {} : { width: 640, height: 640 }),
   }
 
   return <Image {...imageProps} />
