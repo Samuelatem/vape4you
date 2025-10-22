@@ -17,18 +17,31 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const order = await localDB.getOrderById(orderId);
+    console.log('Fetching order:', orderId, 'isDevelopment:', isDevelopment);
+
+    let order;
+    if (isDevelopment) {
+      order = await localDB.getOrderById(orderId);
+    } else {
+      await connectDB();
+      order = await Order.findById(orderId);
+    }
 
     if (!order) {
+      console.error('Order not found:', orderId);
       return NextResponse.json(
         { success: false, error: 'Order not found' },
         { status: 404 }
       );
     }
 
+    console.log('Order found:', order);
+
     if (!order.paymentStatus || order.paymentStatus === 'pending') {
       // Create new payment if not exists
+      console.log('Creating new Bitcoin payment for order:', orderId);
       const paymentData = await createBitcoinPayment(orderId, order.total);
+      
       if (isDevelopment) {
         await localDB.updateOrder(orderId, {
           ...order,
@@ -42,6 +55,7 @@ export async function GET(request: NextRequest) {
           updatedAt: new Date()
         });
       }
+      
       return NextResponse.json({
         success: true,
         payment: paymentData
@@ -54,7 +68,7 @@ export async function GET(request: NextRequest) {
       payment: order.bitcoinPayment
     });
   } catch (error) {
-    console.error('Bitcoin payment error:', error)
+    console.error('Bitcoin payment GET error:', error)
     return NextResponse.json(
       { error: 'Failed to fetch payment details' },
       { status: 500 }
