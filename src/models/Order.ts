@@ -63,7 +63,7 @@ const OrderSchema = new Schema({
       type: String,
       required: true,
     },
-    zipCode: {
+    postalCode: {
       type: String,
       required: true,
     },

@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate shipping address
-    const requiredAddressFields = ['address', 'city', 'postalCode', 'country'];
+    const requiredAddressFields = ['street', 'city', 'state', 'postalCode', 'country'];
     const missingAddressFields = requiredAddressFields.filter(field => !shippingAddress[field]);
 
     if (missingAddressFields.length > 0) {
@@ -51,10 +51,10 @@ export async function POST(request: NextRequest) {
 
     // Format shipping address to match schema
     const formattedAddress = {
-      street: shippingAddress.address,
+      street: shippingAddress.street,
       city: shippingAddress.city,
-      state: shippingAddress.state || 'N/A',
-      zipCode: shippingAddress.postalCode,
+      state: shippingAddress.state,
+      postalCode: shippingAddress.postalCode,
       country: shippingAddress.country
     };
 
@@ -79,8 +79,8 @@ export async function POST(request: NextRequest) {
     console.log('=== End Debug Info ===');
 
     // Validate shipping address fields match the model
-    const requiredShippingFields = ['street', 'city', 'state', 'zipCode', 'country'];
-    const missingShippingFields = requiredShippingFields.filter(field => !formattedAddress[field]);
+    const requiredShippingFields = ['street', 'city', 'state', 'postalCode', 'country'] as const;
+    const missingShippingFields = requiredShippingFields.filter(field => !formattedAddress[field as keyof typeof formattedAddress]);
 
     if (missingShippingFields.length > 0) {
       console.error('Missing shipping fields:', missingShippingFields);

@@ -32,7 +32,7 @@ export async function createOrder(orderData: any) {
         street: orderData.shippingAddress.street,
         city: orderData.shippingAddress.city,
         state: orderData.shippingAddress.state,
-        zipCode: orderData.shippingAddress.zipCode,
+        postalCode: orderData.shippingAddress.postalCode,
         country: orderData.shippingAddress.country
       },
       createdAt: new Date(),

@@ -95,7 +95,7 @@ export default function CheckoutPage() {
           street: formData.address,
           city: formData.city,
           state: formData.state,
-          zipCode: formData.postalCode,
+          postalCode: formData.postalCode,
           country: formData.country || 'USA'
         }
       }
