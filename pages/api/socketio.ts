@@ -18,7 +18,7 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIO) => {
       path: '/api/socketio',
       addTrailingSlash: false,
       cors: {
-        origin: process.env.NEXT_PUBLIC_APP_URL || 'https://vape4you.vercel.app',
+        origin: process.env.NEXT_PUBLIC_APP_URL || 'https://vape4you-com.onrender.com',
         methods: ['GET', 'POST'],
         credentials: true,
       },
