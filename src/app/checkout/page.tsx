@@ -129,8 +129,31 @@ export default function CheckoutPage() {
       const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://vape4you.onrender.com'
       const paymentUrl = `${baseUrl}/payment?order=${encodeURIComponent(orderResult.order._id || orderResult.order.id)}&method=${encodeURIComponent(selectedPayment)}`
       console.log('Redirecting to:', paymentUrl)
-      // Use full absolute URL to ensure deployed payment page is shown immediately
-      window.location.href = paymentUrl
+
+      // Robust redirect that works across desktop, mobile browsers and in-app webviews
+      const redirectToExternal = (url: string) => {
+        if (typeof window === 'undefined') return
+        try {
+          // Primary: use assign which behaves well in most browsers
+          window.location.assign(url)
+        } catch (e) {
+          try {
+            // Fallback: create an anchor and click it (helpful in some webviews)
+            const a = document.createElement('a')
+            a.href = url
+            a.target = '_self'
+            a.rel = 'noopener noreferrer'
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+          } catch (err) {
+            // Last resort
+            window.location.href = url
+          }
+        }
+      }
+
+      redirectToExternal(paymentUrl)
     } catch (error) {
       console.error('Payment error:', error)
       alert(`Payment failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
