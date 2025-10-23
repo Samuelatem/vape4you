@@ -13,8 +13,10 @@ export const useSocket = ({ userId, userName, userRole }: UseSocketOptions) => {
   useEffect(() => {
     if (!userId || !userName || !userRole) return
 
+    // Force WebSocket transport and use the configured domain or current origin
+    const base = process.env.NEXT_PUBLIC_APP_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://vape4you-com.onrender.com')
     // Force WebSocket transport and use the current domain
-        const socket = io('https://vape4you-com.onrender.com', {
+      const socket = io(base, {
       path: '/api/socketio',
       autoConnect: true,
       reconnection: true,

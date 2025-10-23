@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { localDB } from '@/lib/local-db';
+import { emitOrderUpdated } from '@/lib/socket'
 
 export async function POST(request: NextRequest) {
   try {
@@ -37,12 +38,19 @@ export async function POST(request: NextRequest) {
         instructions: order.bitcoinPayment!.instructions,
       };
 
-      await localDB.updateOrder(order.id, {
+      const updatedOrder = await localDB.updateOrder(order.id, {
         ...order,
         status: 'processing',
         paymentStatus: 'completed',
         bitcoinPayment: updatedPayment
       });
+
+      // Emit update to client and vendor
+      try {
+        emitOrderUpdated(updatedOrder)
+      } catch (e) {
+        console.error('Failed to emit order update from webhook', e)
+      }
     }
 
     return NextResponse.json({ success: true });

@@ -131,7 +131,37 @@ export const initSocketServer = (res: NextApiResponseServerIO) => {
     })
 
     res.socket.server.io = io
+    // Expose globally so other API routes can emit events without access to `res`
+    try {
+      ;(globalThis as any).__io = io
+    } catch (e) {
+      console.warn('Unable to set global io instance', e)
+    }
   }
   
   return res.socket.server.io
+}
+
+export const emitOrderCreated = (order: any) => {
+  try {
+    const io = (globalThis as any).__io
+    if (!io) return
+    // Emit to vendor room and the specific user
+    io.to('vendor').emit('order-created', order)
+    if (order.userId) io.to(`user-${order.userId}`).emit('order-created', order)
+  } catch (e) {
+    console.error('emitOrderCreated error', e)
+  }
+}
+
+export const emitOrderUpdated = (order: any) => {
+  try {
+    const io = (globalThis as any).__io
+    if (!io) return
+    // Broadcast updated order to vendor room and the specific user
+    io.to('vendor').emit('order-updated', order)
+    if (order.userId) io.to(`user-${order.userId}`).emit('order-updated', order)
+  } catch (e) {
+    console.error('emitOrderUpdated error', e)
+  }
 }

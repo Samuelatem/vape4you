@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { Plus, Edit, Trash2, Package, DollarSign, Users, ShoppingCart, TrendingUp, Clock, X } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { formatPrice } from '@/lib/utils'
+import { useSocket } from '@/hooks/useSocket'
 
 interface VendorProduct {
   id?: string
@@ -65,6 +66,7 @@ export default function VendorDashboard() {
   const [loading, setLoading] = useState(true)
   const [selectedView, setSelectedView] = useState<string | null>(null)
   const [refreshInterval, setRefreshInterval] = useState<NodeJS.Timeout | null>(null)
+  const socket = useSocket({ userId: session?.user?.id as string, userName: session?.user?.name as string, userRole: 'vendor' })
 
   const fetchVendorData = useCallback(async () => {
     try {
@@ -123,11 +125,31 @@ export default function VendorDashboard() {
     // Check if user is a vendor by making an API call instead of relying on session.user.role
     fetchVendorData()
     
-    // Set up real-time refresh every 30 seconds
+    // Set up real-time socket listeners
+    if (socket) {
+      socket.on('order-created', (order: any) => {
+        // Prepend new order
+        setOrders(prev => [order, ...prev])
+        // Refresh stats
+        fetchVendorData()
+      })
+
+      socket.on('order-updated', (updatedOrder: any) => {
+        setOrders(prev => prev.map(o => (o.id === (updatedOrder.id || updatedOrder._id) ? { ...o, ...updatedOrder } : o)))
+        // Refresh stats to reflect counts
+        fetchVendorData()
+      })
+    }
+
+    // Keep a fallback periodic refresh as safety
     const interval = setInterval(fetchVendorData, 30000)
     setRefreshInterval(interval)
-    
+
     return () => {
+      if (socket) {
+        socket.off('order-created')
+        socket.off('order-updated')
+      }
       if (interval) clearInterval(interval)
     }
   }, [session, status, router, fetchVendorData])

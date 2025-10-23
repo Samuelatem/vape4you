@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { createOrder, getOrderById } from '@/lib/orders'
+import { emitOrderCreated } from '@/lib/socket'
 import { Order } from '@/models/Order'
 import { connectDB } from '@/lib/db'
 
@@ -106,6 +107,13 @@ export async function POST(request: NextRequest) {
     const order = await createOrder(orderData)
 
     console.log('Order created:', order)
+
+    // Emit real-time notification about the new order
+    try {
+      emitOrderCreated(order)
+    } catch (e) {
+      console.error('Failed to emit order-created', e)
+    }
 
     return NextResponse.json({
       success: true,

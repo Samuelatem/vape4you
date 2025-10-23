@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth'
 export const dynamic = 'force-dynamic'
 import { authOptions } from '@/lib/auth'
 import { localDB } from '@/lib/local-db'
+import { emitOrderUpdated } from '@/lib/socket'
 
 export async function GET(request: NextRequest) {
   try {
@@ -82,6 +83,13 @@ export async function PUT(request: NextRequest) {
     
     if (!updatedOrder) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 })
+    }
+
+    // Emit real-time update to vendor and customer
+    try {
+      emitOrderUpdated(updatedOrder)
+    } catch (e) {
+      console.error('Failed to emit order update', e)
     }
 
     return NextResponse.json({

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useSocket } from '@/hooks/useSocket'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
@@ -69,6 +70,7 @@ export default function OrdersPage() {
   const router = useRouter()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
+  const socket = useSocket({ userId: session?.user?.id as string, userName: session?.user?.name as string, userRole: 'client' })
 
   useEffect(() => {
     if (status === 'loading') return
@@ -79,72 +81,33 @@ export default function OrdersPage() {
     }
 
     fetchOrders()
+    // join socket for real-time updates
+    if (socket) {
+      socket.on('order-updated', (updatedOrder: any) => {
+        setOrders(prev => prev.map(o => o._id === (updatedOrder._id || updatedOrder.id) ? { ...o, ...updatedOrder } : o))
+      })
+      socket.on('order-created', (newOrder: any) => {
+        // Only add if belongs to this user
+        if (newOrder.userId === session.user.id) {
+          setOrders(prev => [newOrder, ...prev])
+        }
+      })
+    }
+  }, [session, status, router, socket])
   }, [session, status, router])
 
   const fetchOrders = async () => {
     try {
-      // Mock orders data for demonstration
-      const mockOrders: Order[] = [
-        {
-          _id: '1',
-          items: [
-            {
-              productId: '1',
-              productName: 'Premium Vape Pen V1',
-              productImage: '/images/products/1.jpg',
-              quantity: 1,
-              price: 49.99
-            },
-            {
-              productId: '2',
-              productName: 'Mint Fresh Disposable',
-              productImage: '/images/products/12.jpg',
-              quantity: 2,
-              price: 14.99
-            }
-          ],
-          total: 79.97,
-          status: 'delivered',
-          paymentMethod: 'Bitcoin',
-          shippingAddress: {
-            firstName: 'John',
-            lastName: 'Doe',
-            address: '123 Main St',
-            city: 'New York',
-            postalCode: '10001',
-            country: 'USA'
-          },
-          createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString(),
-          updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString()
-        },
-        {
-          _id: '2',
-          items: [
-            {
-              productId: '3',
-              productName: 'Cloud Master Pro',
-              productImage: '/images/products/4.jpg',
-              quantity: 1,
-              price: 79.99
-            }
-          ],
-          total: 79.99,
-          status: 'processing',
-          paymentMethod: 'PayPal',
-          shippingAddress: {
-            firstName: 'John',
-            lastName: 'Doe',
-            address: '123 Main St',
-            city: 'New York',
-            postalCode: '10001',
-            country: 'USA'
-          },
-          createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString(),
-          updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString()
-        }
-      ]
-
-      setOrders(mockOrders)
+      const res = await fetch('/api/orders')
+      if (!res.ok) throw new Error('Failed fetching orders')
+      const data = await res.json()
+      if (data.success && data.orders) {
+        setOrders(data.orders)
+      } else if (Array.isArray(data)) {
+        setOrders(data)
+      } else {
+        setOrders([])
+      }
     } catch (error) {
       console.error('Error fetching orders:', error)
     } finally {

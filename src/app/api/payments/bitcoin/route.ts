@@ -4,6 +4,7 @@ import { connectDB } from '@/lib/db';
 import { Order } from '@/models/Order';
 import { isDevelopment } from '@/lib/utils';
 import { localDB } from '@/lib/local-db';
+import { emitOrderUpdated } from '@/lib/socket'
 
 export async function GET(request: NextRequest) {
   try {
@@ -126,6 +127,12 @@ export async function POST(request: NextRequest) {
         bitcoinPayment: paymentData,
         paymentStatus: 'pending'
       });
+      try {
+        const updatedOrder = await localDB.getOrderById(orderId)
+        emitOrderUpdated(updatedOrder)
+      } catch (e) {
+        console.error('Failed to emit order update after payment creation', e)
+      }
     } else {
       await connectDB();
       order = await Order.findByIdAndUpdate(
