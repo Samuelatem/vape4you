@@ -94,7 +94,6 @@ export default function OrdersPage() {
       })
     }
   }, [session, status, router, socket])
-  }, [session, status, router])
 
   const fetchOrders = async () => {
     try {
