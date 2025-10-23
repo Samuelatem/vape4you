@@ -1321,6 +1321,46 @@
           "Contact support if you need assistance"
         ]
       }
+    },
+    {
+      "id": "1761084045755",
+      "userId": "68f8025471b7d7c7b9865654",
+      "items": [
+        {
+          "productId": "68f715211692bdcb4b55c40a",
+          "quantity": 1,
+          "price": 20
+        }
+      ],
+      "total": 20,
+      "status": "pending",
+      "paymentMethod": "bitcoin",
+      "paymentStatus": "pending",
+      "shippingAddress": {
+        "street": "Bangue, Angelina Hotel",
+        "city": "Douala",
+        "state": "N/A",
+        "zipCode": "00000",
+        "country": "Cameroon"
+      },
+      "trackingNumber": "VY0FFLM4PDV",
+      "createdAt": "2025-10-21T22:00:45.755Z",
+      "updatedAt": "2025-10-21T22:01:02.041Z",
+      "bitcoinPayment": {
+        "orderId": "1761084045755",
+        "address": "bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t",
+        "amount": "0.00018036",
+        "amountUSD": 20,
+        "status": "pending",
+        "expiresAt": "2025-10-22T22:01:02.041Z",
+        "qrCode": "bitcoin:bc1q3u9v6aqpdal3ynltkjd4xz4l6nt2l5ymhjvk7t?amount=0.00018036",
+        "instructions": [
+          "Send exactly 0.00018036 BTC to the address below",
+          "Always verify the address before sending",
+          "Send the exact amount shown to complete your order",
+          "Contact support if you need assistance"
+        ]
+      }
     }
   ]
 }

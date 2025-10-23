@@ -13,9 +13,14 @@ export const useSocket = ({ userId, userName, userRole }: UseSocketOptions) => {
   useEffect(() => {
     if (!userId || !userName || !userRole) return
 
-    // Initialize socket connection
-    const socket = io(process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000', {
+    // Force WebSocket transport and use the current domain
+        const socket = io('https://vape4you-com.onrender.com', {
       path: '/api/socketio',
+      autoConnect: true,
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      transports: ['websocket', 'polling'],
       addTrailingSlash: false,
     })
 
@@ -25,6 +30,14 @@ export const useSocket = ({ userId, userName, userRole }: UseSocketOptions) => {
     socket.on('connect', () => {
       console.log('🔗 Connected to chat server')
       socket.emit('join-user', { userId, role: userRole, name: userName })
+    })
+
+    socket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error)
+    })
+
+    socket.on('error', (error) => {
+      console.error('Socket general error:', error)
     })
 
     socket.on('disconnect', () => {
