@@ -126,10 +126,10 @@ export default function CheckoutPage() {
       // Clear cart and redirect to payment page for instructions
       console.log('Payment successful, redirecting...')
       clearCart()
-      const paymentUrl = `/payment?order=${encodeURIComponent(orderResult.order._id || orderResult.order.id)}&method=${encodeURIComponent(selectedPayment)}`
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://vape4you.onrender.com'
+      const paymentUrl = `${baseUrl}/payment?order=${encodeURIComponent(orderResult.order._id || orderResult.order.id)}&method=${encodeURIComponent(selectedPayment)}`
       console.log('Redirecting to:', paymentUrl)
-      
-      // Use replace instead of push to avoid navigation issues
+      // Use full absolute URL to ensure deployed payment page is shown immediately
       window.location.href = paymentUrl
     } catch (error) {
       console.error('Payment error:', error)
